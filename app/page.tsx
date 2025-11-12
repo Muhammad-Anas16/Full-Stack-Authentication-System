@@ -7,14 +7,6 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       <header className="bg-blue-700 flex items-center justify-between px-8 py-4">
         <h1 className="font-bold text-lg">MERNAuthFlow</h1>
-        <nav className="space-x-6 text-sm">
-          <Link href="/" className="hover:text-gray-200">
-            Dashboard
-          </Link>
-          <Link href="/profile" className="hover:text-gray-200">
-            Profile
-          </Link>
-        </nav>
         <button className="bg-red-500 px-4 py-2 rounded-lg text-white">
           Logout
         </button>

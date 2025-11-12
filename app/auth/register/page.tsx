@@ -4,6 +4,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { authClient } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -30,6 +31,7 @@ const Signup: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [formError, setFormError] = useState<string>("");
 
+  const router = useRouter();
   // ✅ Handle input changes
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -72,11 +74,11 @@ const Signup: React.FC = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Registeration => :", formData.username);
-      console.log("Registeration => :", formData.email);
-      console.log("Registeration => :", formData.password);
+      // console.log("Registeration => :", formData.username);
+      // console.log("Registeration => :", formData.email);
+      // console.log("Registeration => :", formData.password);
 
-      const { data, error } = await authClient.signUp.email(
+      await authClient.signUp.email(
         {
           email: formData.email,
           password: formData.password,
@@ -86,18 +88,13 @@ const Signup: React.FC = () => {
         },
         {
           onRequest: (ctx) => {
-            //show loading
-            // toast.loading("Creating your account...");
-            toast.loading(ctx.message || "Creating your account...");
+            toast("Creating your account...");
           },
           onSuccess: (ctx) => {
-            //redirect to the dashboard or sign in page
-            // toast.success("Account created successfully!");
-            toast.success(ctx.data?.message || "Account created successfully!");
+            toast.success("Account created successfully!");
+            router.push("/auth/login");
           },
           onError: (ctx) => {
-            // display the error message
-            // toast.error("Failed to create account.");
             toast.error(ctx.error.message);
           },
         }

@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { authClient } from "@/app/lib/auth-client";
+import { authClient, SignInGoogle, signInWithEmail } from "@/app/lib/auth-client";
+import Image from "next/image";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -40,45 +41,32 @@ const Login: React.FC = () => {
     setIsLoading(true);
     try {
       // console.log("User logged in:", { email, password });
-      const { data, error } = await authClient.signIn.email(
-        {
-          email,
-          password,
-          callbackURL: "/",
-          /**
-           * remember the user session after the browser is closed.
-           * @default true
-           */
-          rememberMe: false,
-        },
-        {
-          onRequest: (ctx) => {
-            //show loading
-            // toast.loading("Creating your account...");
-            toast.loading(ctx.message || "Logging your account...");
-          },
-          onSuccess: (ctx) => {
-            //redirect to the dashboard or sign in page
-            // toast.success("Account created successfully!");
-            toast.success(ctx.data?.message || "Sign In successfully!");
-          },
-          onError: (ctx) => {
-            // display the error message
-            // toast.error("Failed to create account.");
-            toast.error(ctx.error.message);
-          },
-        }
-      );
-
-      // Redirect after successful login
-      // router.push("/");
+      await signInWithEmail(email, password);
+      // await authClient.signIn.email(
+      //   {
+      //     email,
+      //     password,
+      //     callbackURL: "/",
+      //     rememberMe: false,
+      //   },
+      //   {
+      //     onRequest: (ctx) => {
+      //       toast("Logging your account...");
+      //     },
+      //     onSuccess: (ctx) => {
+      //       toast.success(ctx.data?.message || "Sign In successfully!");
+      //     },
+      //     onError: (ctx) => {
+      //       toast.error(ctx.error.message);
+      //     },
+      //   }
+      // );
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <main className="min-h-screen bg-black flex items-center justify-center text-white px-4">
       <section className="w-full max-w-md bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-lg">
@@ -97,6 +85,7 @@ const Login: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               className="w-full p-3 rounded-lg bg-gray-950 border border-gray-800 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              required
             />
           </div>
 
@@ -109,6 +98,7 @@ const Login: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className="w-full p-3 rounded-lg bg-gray-950 border border-gray-800 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              required
             />
           </div>
 
@@ -129,15 +119,31 @@ const Login: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg font-semibold transition duration-300 disabled:opacity-50"
+            className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg font-semibold transition duration-300 disabled:opacity-50 cursor-pointer"
           >
             {isLoading ? "Signing in..." : "Sign In"}
+          </button>
+
+          {/* Google Login Button */}
+          <button
+            type="button"
+            className="w-full bg-[#030712] hover:bg-[#030712]/90 p-3 rounded-lg font-semibold transition duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+            onClick={SignInGoogle}
+          >
+            <Image
+              src="/google icon.png"
+              alt="Google Logo"
+              width={25}
+              height={25}
+              className="inline-block"
+            />
+            <span>Sign in with Google</span>
           </button>
 
           {/* Sign Up Link */}
           <p className="text-center text-gray-400 text-sm mt-4">
             Don’t have an account?{" "}
-            <Link href="/auth/signup" className="text-blue-400 hover:underline">
+            <Link href="/auth/register" className="text-blue-400 hover:underline">
               Sign up
             </Link>
           </p>
