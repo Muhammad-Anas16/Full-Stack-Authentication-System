@@ -57,8 +57,8 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0f172a] p-4">
-      <div className="w-full max-w-md bg-[#1e293b] p-8 rounded-2xl shadow-lg text-white">
+    <div className="min-h-screen flex items-center justify-center bg-[#0d0d0d] p-4">
+      <div className="w-full max-w-md bg-black p-8 rounded-2xl shadow-lg text-white">
         <h1 className="text-3xl font-bold text-center">Create Account</h1>
         <p className="text-center text-gray-300 mt-2">
           Join us and start your journey.
@@ -108,7 +108,7 @@ export default function RegisterForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-10 text-gray-400 hover:text-white"
+              className="absolute right-3 top-10 text-gray-400 hover:text-white cursor-pointer"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>

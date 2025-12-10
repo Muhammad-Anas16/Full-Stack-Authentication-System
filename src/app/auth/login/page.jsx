@@ -68,8 +68,8 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#0f172a] px-4">
-      <div className="w-full max-w-md bg-[#111827] p-8 rounded-2xl shadow-lg border border-gray-800 text-white">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#0d0d0d] px-4">
+      <div className="w-full max-w-md bg-black p-8 rounded-2xl shadow-lg border border-gray-800 text-white">
         {/* Lock Icon */}
         <div className="flex justify-center mb-6">
           <div className="bg-blue-600 p-4 rounded-full shadow-lg">
@@ -136,7 +136,7 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 transition text-white py-3 rounded-xl font-semibold cursor-pointer"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white py-3 rounded-xl font-semibold cursor-pointer"
           >
             {loading ? "Logging In..." : "Log In"}
           </button>
@@ -154,7 +154,7 @@ export default function LoginForm() {
           <button
             onClick={loginWithGoogle}
             disabled={googleLoading}
-            className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl hover:bg-gray-100 transition cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl hover:bg-gray-100 transition cursor-pointer font-bold"
           >
             <FcGoogle size={20} />
             {googleLoading ? (
@@ -167,7 +167,7 @@ export default function LoginForm() {
           <button
             onClick={loginWithGithub}
             disabled={githubLoading}
-            className="w-full flex items-center justify-center gap-3 bg-[#1f2937] py-3 rounded-xl border border-gray-700 hover:bg-gray-800 transition cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 bg-[#1f2937] py-3 rounded-xl border border-gray-700 hover:bg-gray-800 transition cursor-pointer font-bold"
           >
             <FaGithub size={20} />
             {githubLoading ? (
