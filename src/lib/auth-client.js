@@ -4,8 +4,11 @@ import { createAuthClient } from "better-auth/react";
 import { toast } from "react-toastify";
 
 export const authClient = createAuthClient({
-    baseURL: "http://localhost:3000"
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? "https://full-stack-authentication-system-pi.vercel.app" 
+    : "http://localhost:3000"
 });
+
 
 const SignUpWithEmail = async (email, password, username) => {
     try {
