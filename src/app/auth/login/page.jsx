@@ -48,18 +48,19 @@ export default function LoginForm() {
     setGoogleLoading(true);
     const result = await SignInGoogle();
     if (!result.success) {
-      // console.error('Sign in failed:', result.error);
+      console.error("Sign in failed:", result.error);
       toast.error("Google sign-in failed. Please try again.");
       return;
     }
-    setGoogleLoading(false);
     router.push(result.data.url);
+    setGoogleLoading(false);
   };
 
   const loginWithGithub = async () => {
     setGithubLoading(true);
     const result = await SignInGithub();
     if (!result.success) {
+      console.error("GitHub sign in failed:", result.error);
       toast.error("GitHub sign-in failed. Please try again.");
       return;
     }
