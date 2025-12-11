@@ -90,15 +90,17 @@ const SignInGoogle = async () => {
             },
             {
                 onRequest: (ctx) => {
-                    console.log("auth-client onRequest Google sign-in ", ctx);
-                    // toast("Signing in with Google...");
+                    console.log("auth-client onRequest Google sign-in ", ctx.data.message || ctx.message);
+                    toast.info(ctx.data.message || "Signing in with Google...");
                 },
                 onSuccess: (ctx) => {
-                    console.log("checking data on Google SignIn when on success", ctx.data);
+                    console.log("checking data on Google SignIn when on success", ctx.data.message || ctx.message);
                     // toast.success("Google sign in successful!");
+                    toast.success(ctx.data.message || "Google sign in successful!");
                 },
                 onError: (ctx) => {
-                    console.log(ctx.error.message);
+                    console.log(ctx.data.message || ctx.message);
+                    toast.error(ctx.error.message || ctx.message || "Google sign-in failed.");
                 },
             }
         );
@@ -125,16 +127,17 @@ const SignInGithub = async () => {
             },
             {
                 onRequest: (ctx) => {
-                    // console.log("auth-client onRequest GitHub sign-in ", ctx);
-                    toast.info("Signing in with GitHub...");
+                    console.log("auth-client onRequest GitHub sign-in ", ctx.data.message || ctx.message);
+                    toast.info(ctx.data.message || ctx.message || "Signing in with GitHub...");
                 },
                 onSuccess: (ctx) => {
-                    // console.log("checking data on GitHub SignIn when on success", ctx.data);
+                    console.log("checking data on GitHub SignIn when on success", ctx.data.message || ctx.message);
                     // toast.success("GitHub sign in successful!");
-                    console.log("GitHub sign-in successful");
+                    console.log(ctx.message || ctx.data.message || "GitHub sign-in successful");
                 },
                 onError: (ctx) => {
-                    console.log(ctx.error.message);
+                    console.log(ctx.data.message || ctx.message);
+                    toast.error(ctx.error.message || ctx.message || "GitHubgit  sign-in failed.");
                 },
             }
         );
