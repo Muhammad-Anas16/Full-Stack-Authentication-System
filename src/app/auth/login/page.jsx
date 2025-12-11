@@ -46,28 +46,28 @@ export default function LoginForm() {
 
   const loginWithGoogle = async () => {
     setGoogleLoading(true);
-    const result = await SignInGoogle();
-    if (!result.success) {
-      console.error("Sign in failed:", result.error);
-      setGithubLoading(false);
+    try {
+      await SignInGoogle();
+      // Better Auth handles the redirect automatically
+      // No need to manually redirect with router.push
+    } catch (error) {
       toast.error("Google sign-in failed. Please try again.");
-      return;
+    } finally {
+      setGoogleLoading(false);
     }
-    router.push(result.data.url);
-    setGoogleLoading(false);
   };
 
   const loginWithGithub = async () => {
     setGithubLoading(true);
-    const result = await SignInGithub();
-    if (!result.success) {
-      console.error("GitHub sign in failed:", result.error);
-      setGithubLoading(false);
+    try {
+      await SignInGithub();
+      // Better Auth handles the redirect automatically
+      // No need to manually redirect with router.push
+    } catch (error) {
       toast.error("GitHub sign-in failed. Please try again.");
-      return;
+    } finally {
+      setGithubLoading(false);
     }
-    router.push(result.data.url);
-    setGithubLoading(false);
   };
 
   return (

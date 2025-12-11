@@ -4,9 +4,10 @@ import { createAuthClient } from "better-auth/react";
 import { toast } from "react-toastify";
 
 export const authClient = createAuthClient({
-  baseURL: process.env.NODE_ENV === 'production' 
-    ? "https://full-stack-authentication-system-pi.vercel.app" 
-    : "http://localhost:3000"
+    //   baseURL: process.env.NODE_ENV === 'production' 
+    //     ? "https://full-stack-authentication-system-pi.vercel.app" 
+    //     : "http://localhost:3000"
+    baseURL: "https://full-stack-authentication-system-pi.vercel.app"
 });
 
 
@@ -78,77 +79,107 @@ const signInWithEmail = async (email, password, shouldRemember = true) => {
     }
 };
 
+// const SignInGoogle = async () => {
+//     try {
+//         const { data, error } = await authClient.signIn.social(
+//             {
+//                 provider: "google",
+//                 callbackURL: "/",
+//                 errorCallbackURL: "/auth/register",
+//                 newUserCallbackURL: "/",
+//                 disableRedirect: true,
+//             },
+//             {
+//                 onRequest: (ctx) => {
+//                     console.log("auth-client onRequest Google sign-in ", ctx.data.message || ctx.message);
+//                     toast.info(ctx.data.message || "Signing in with Google...");
+//                 },
+//                 onSuccess: (ctx) => {
+//                     console.log("checking data on Google SignIn when on success", ctx.data.message || ctx.message);
+//                     // toast.success("Google sign in successful!");
+//                     toast.success(ctx.data.message || "Google sign in successful!");
+//                 },
+//                 onError: (ctx) => {
+//                     console.log(ctx.data.message || ctx.message);
+//                     toast.error(ctx.error.message || ctx.message || "Google sign-in failed.");
+//                 },
+//             }
+//         );
+
+//         if (error) {
+//             return { success: false, error: error.message };
+//         }
+
+//         return { success: true, data };
+//     } catch (error) {
+//         return { success: false, error: error.message || "Something went wrong" };
+//     }
+// };
+
+// const SignInGithub = async () => {
+//     try {
+//         const { data, error } = await authClient.signIn.social(
+//             {
+//                 provider: "github",
+//                 callbackURL: "/",
+//                 errorCallbackURL: "/auth/register",
+//                 newUserCallbackURL: "/",
+//                 disableRedirect: true,
+//             },
+//             {
+//                 onRequest: (ctx) => {
+//                     console.log("auth-client onRequest GitHub sign-in ", ctx.data.message || ctx.message);
+//                     toast.info(ctx.data.message || ctx.message || "Signing in with GitHub...");
+//                 },
+//                 onSuccess: (ctx) => {
+//                     console.log("checking data on GitHub SignIn when on success", ctx.data.message || ctx.message);
+//                     // toast.success("GitHub sign in successful!");
+//                     console.log(ctx.message || ctx.data.message || "GitHub sign-in successful");
+//                 },
+//                 onError: (ctx) => {
+//                     console.log(ctx.data.message || ctx.message);
+//                     toast.error(ctx.error.message || ctx.message || "GitHubgit  sign-in failed.");
+//                 },
+//             }
+//         );
+
+//         if (error) {
+//             return { success: false, error: error.message };
+//         }
+
+//         return { success: true, data };
+//     } catch (error) {
+//         return { success: false, error: error.message || "Something went wrong" };
+//     }
+// };
+
 const SignInGoogle = async () => {
     try {
-        const { data, error } = await authClient.signIn.social(
-            {
-                provider: "google",
-                callbackURL: "/",
-                errorCallbackURL: "/auth/register",
-                newUserCallbackURL: "/",
-                disableRedirect: true,
-            },
-            {
-                onRequest: (ctx) => {
-                    console.log("auth-client onRequest Google sign-in ", ctx.data.message || ctx.message);
-                    toast.info(ctx.data.message || "Signing in with Google...");
-                },
-                onSuccess: (ctx) => {
-                    console.log("checking data on Google SignIn when on success", ctx.data.message || ctx.message);
-                    // toast.success("Google sign in successful!");
-                    toast.success(ctx.data.message || "Google sign in successful!");
-                },
-                onError: (ctx) => {
-                    console.log(ctx.data.message || ctx.message);
-                    toast.error(ctx.error.message || ctx.message || "Google sign-in failed.");
-                },
-            }
-        );
-
-        if (error) {
-            return { success: false, error: error.message };
-        }
-
-        return { success: true, data };
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/",
+            errorCallbackURL: "/auth/register",
+            newUserCallbackURL: "/",
+        });
+        // No need to return data or handle redirect manually
     } catch (error) {
-        return { success: false, error: error.message || "Something went wrong" };
+        toast.error("Google sign-in failed. Please try again.");
+        console.error("Google sign-in error:", error);
     }
 };
 
 const SignInGithub = async () => {
     try {
-        const { data, error } = await authClient.signIn.social(
-            {
-                provider: "github",
-                callbackURL: "/",
-                errorCallbackURL: "/auth/register",
-                newUserCallbackURL: "/",
-                disableRedirect: true,
-            },
-            {
-                onRequest: (ctx) => {
-                    console.log("auth-client onRequest GitHub sign-in ", ctx.data.message || ctx.message);
-                    toast.info(ctx.data.message || ctx.message || "Signing in with GitHub...");
-                },
-                onSuccess: (ctx) => {
-                    console.log("checking data on GitHub SignIn when on success", ctx.data.message || ctx.message);
-                    // toast.success("GitHub sign in successful!");
-                    console.log(ctx.message || ctx.data.message || "GitHub sign-in successful");
-                },
-                onError: (ctx) => {
-                    console.log(ctx.data.message || ctx.message);
-                    toast.error(ctx.error.message || ctx.message || "GitHubgit  sign-in failed.");
-                },
-            }
-        );
-
-        if (error) {
-            return { success: false, error: error.message };
-        }
-
-        return { success: true, data };
+        await authClient.signIn.social({
+            provider: "github",
+            callbackURL: "/",
+            errorCallbackURL: "/auth/register",
+            newUserCallbackURL: "/",
+        });
+        // No need to return data or handle redirect manually
     } catch (error) {
-        return { success: false, error: error.message || "Something went wrong" };
+        toast.error("GitHub sign-in failed. Please try again.");
+        console.error("GitHub sign-in error:", error);
     }
 };
 
@@ -169,7 +200,7 @@ const forgetPassword = async (email) => {
             email: email,
             redirectTo: "/auth/reset-password"
         });
-        
+
         if (error) {
             return { success: false, error: error.message };
         }
