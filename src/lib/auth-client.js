@@ -4,10 +4,8 @@ import { createAuthClient } from "better-auth/react";
 import { toast } from "react-toastify";
 
 export const authClient = createAuthClient({
-    //   baseURL: process.env.NODE_ENV === 'production' 
-    //     ? "https://full-stack-authentication-system-pi.vercel.app" 
-    //     : "http://localhost:3000"
     baseURL: "https://full-stack-authentication-system-pi.vercel.app"
+    // baseURL: "http://localhost:3000"
 });
 
 
