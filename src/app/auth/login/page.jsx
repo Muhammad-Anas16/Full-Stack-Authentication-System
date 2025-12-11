@@ -49,6 +49,7 @@ export default function LoginForm() {
     const result = await SignInGoogle();
     if (!result.success) {
       console.error("Sign in failed:", result.error);
+      setGithubLoading(false);
       toast.error("Google sign-in failed. Please try again.");
       return;
     }
@@ -61,6 +62,7 @@ export default function LoginForm() {
     const result = await SignInGithub();
     if (!result.success) {
       console.error("GitHub sign in failed:", result.error);
+      setGithubLoading(false);
       toast.error("GitHub sign-in failed. Please try again.");
       return;
     }
